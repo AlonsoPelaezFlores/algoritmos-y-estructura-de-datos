@@ -1,5 +1,6 @@
 package ejercicios.hackerrank;
 
+import java.lang.annotation.Target;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
@@ -77,5 +78,34 @@ public class Result {
         }
         // devolvemos la matriz
         return result;
+    }
+
+    // ex3
+    // devuelve true o false si la cadena es palindromo
+    public static boolean isAlphabeticPalindrome(String code) {
+        //asignamos los dos punteros
+        int start = 0, end = code.length() - 1;
+        // convertimos la cadena en minusculas
+        code = code.toLowerCase();
+        while (start < end) {
+            // verificamos si el puntero start contiene  un numero avanza al siguiente caracter
+            if(!Character.isLetter(code.charAt(start))){
+                start++;
+                continue;
+            }
+            // verificamos si el puntero "end" contiene un numero disminuimos en 1, ya que,
+            // va del final al inicio
+            if(!Character.isLetter(code.charAt(end))){
+                end--;
+                continue;
+            }
+            // si no coinciden en alguna letra no es palindromo
+            if (code.charAt(start) != code.charAt(end)) return false;
+
+
+            start++;
+            end--;
+        }
+        return true;
     }
 }
