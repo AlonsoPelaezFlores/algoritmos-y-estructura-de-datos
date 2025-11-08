@@ -1,10 +1,7 @@
 package ejercicios.hackerrank;
 
 import java.lang.annotation.Target;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 
 public class Result {
     // ex 1
@@ -108,4 +105,41 @@ public class Result {
         }
         return true;
     }
+
+    // rotar los caracteres de s2 hasta que sea igual que la cadena s1
+    // de lo contrario no es una rotacion no trivial
+    public static boolean isNonTrivialRotation(String s1, String s2) {
+
+        if(s1.equals(s2)) return false;
+        if (s1.length() != s2.length()) return false;
+
+       return (s1 + s1).contains(s2);
+    }
+    // encontrar pares de numeros que sumados den menos que budget
+    public static int countAffordablePairs(List<Integer> prices, int budget) {
+        // inicializamos dos punteros i y j, Ademas del contador
+        // "i" avanzara cada vez que "j" llegue asta el numero item del array
+        int i=0, j=1, count = 0;
+        // loop mientras i sea menor a la longitud del array
+        while (i < prices.size() - 1){
+            // si j es igual o mayor a la longitud
+            if (j >= prices.size()) {
+                // avanzamos a la siguiente posicion del array
+                i++;
+                // movemos a "j" a su nueva posicion, es decir, una posicion delante de "i"
+                // para seguir con el recorrido
+                j=i+1;
+                // volvemos al inicio para evitar la siguiente condicional
+                continue;
+            }
+            // verificamos si la suma de estos numeros son menores a budget, de ser asi, se van contabilizando
+            if (prices.get(i) + prices.get(j) <= budget) {
+                count++;
+            }
+            // aumentamos en 1 el puntero
+            j++;
+        }
+        return count;
+    }
 }
+
