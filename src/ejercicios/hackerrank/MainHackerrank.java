@@ -34,19 +34,31 @@ public class MainHackerrank {
 //        ex5
 //        List<Integer> list = Arrays.asList(1,2,3,4,5);
 //        System.out.println(countAffordablePairs(list,7));
+
         SinglyLinkedListNode l3 = new SinglyLinkedListNode();
-        l3.data = 8;
+        l3.data = 2;
         SinglyLinkedListNode l2 = new SinglyLinkedListNode();
-        l2.data = 7;
+        l2.data = 2;
         SinglyLinkedListNode l1 = new SinglyLinkedListNode();
-        l1.data = 6;
+        l1.data = 2;
         SinglyLinkedListNode head = new SinglyLinkedListNode();
-        head.data = 5;
+        head.data = 1;
 
         head.next = l1;
         l1.next = l2;
         l2.next = l3;
         l3.next = null;
-        removeKthNodeFromEnd(head, 3);
+//         SinglyLinkedListNode result = removeKthNodeFromEnd(head, 0);
+//        System.out.println(result.data);
+//        while (result != null) {
+//            System.out.print(result.data + " ");
+//            result = result.next;
+//        }
+        SinglyLinkedListNode result = deleteDuplicates(head);
+        while (result != null) {
+            System.out.print(result.data + " ");
+            result = result.next;
+        }
+
     }
 }

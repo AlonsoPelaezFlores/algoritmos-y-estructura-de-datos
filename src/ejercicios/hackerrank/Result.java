@@ -1,12 +1,14 @@
 package ejercicios.hackerrank;
 
-import java.lang.annotation.Target;
 import java.util.*;
 
 public class Result {
-    // ex 1
-    // Dada una lista de numeros devolver las veces que el numero actual ha sido
-    // estrictamente mayor a la media de los anteriores
+    /**
+     *  EJERCICIOS DE ARRAYS Y RESOLUCION DE PROBLEMAS BASICOS
+     * ex 1
+     * Dada una lista de numeros devolver las veces que el numero actual ha sido
+     * estrictamente mayor a la media de los anteriores
+     * */
     public static int countResponseTimeRegressions(List<Integer> responseTimes) {
 
         // devolvemos 0 si la lista esta vacia o cuenta con un numero
@@ -30,12 +32,16 @@ public class Result {
         // devolvemos el contador
         return count;
     }
-    // ex 2
-    // dada una matriz de numeros, ordenar y devolver la matriz con numeros que no se
-    // superpongan
-    // ejemplo: tenemos una matriz = [[1,2],[1,5],[7,8]]
-    // esta matriz daria como resultado = [[1,5],[7,8]]
-    // ya que, el primer digito
+    /**
+     *
+     * EJERCICIOS DE ARRAYS Y RESOLUCION DE PROBLEMAS BASICOS
+     * ex 2
+     * dada una matriz de numeros, ordenar y devolver la matriz con numeros que no se
+     * superpongan
+     * ejemplo: tenemos una matriz = [[1,2],[1,5],[7,8]]
+     * esta matriz daria como resultado = [[1,5],[7,8]]
+     * ya que, el primer digito
+     * */
     public static List<List<Integer>> mergeHighDefinitionIntervals(List<List<Integer>> intervals) {
 
 
@@ -44,7 +50,6 @@ public class Result {
 
         // ordenamos la matriz
         intervals.sort(Comparator.comparingInt(a -> a.get(0)));
-
         List<List<Integer>> result = new ArrayList<>();
         // agregamos la primera lista a la matriz
         result.add(intervals.get(0));
@@ -76,9 +81,12 @@ public class Result {
         // devolvemos la matriz
         return result;
     }
-
-    // ex3
-    // devuelve true o false si la cadena es palindromo
+    /**
+     *
+     * EJERCICIOS DE STRING Y PATRONES DE COMPARACION
+     * ex 3
+     * devuelve true o false si la cadena es palindromo
+     * */
     public static boolean isAlphabeticPalindrome(String code) {
         //asignamos los dos punteros
         int start = 0, end = code.length() - 1;
@@ -106,8 +114,12 @@ public class Result {
         return true;
     }
 
-    // rotar los caracteres de s2 hasta que sea igual que la cadena s1
-    // de lo contrario no es una rotacion no trivial
+    /**
+     * EJERCICIOS DE STRING Y PATRONES DE COMPARACION
+     * ex 4
+     * rotar los caracteres de s2 hasta que sea igual que la cadena s1
+     * de lo contrario no es una rotacion no trivial
+     * */
     public static boolean isNonTrivialRotation(String s1, String s2) {
 
         if(s1.equals(s2)) return false;
@@ -115,7 +127,12 @@ public class Result {
 
        return (s1 + s1).contains(s2);
     }
-    // encontrar pares de numeros que sumados den menos que budget
+
+    /**
+     * EJERCICIOS DE PUNTEROS Y DEZLIZAMIENTO DE VENTANAS
+     * ex 5
+     * encontrar pares de numeros que sumados den menos que budget
+     */
     public static int countAffordablePairs(List<Integer> prices, int budget) {
         // inicializamos dos punteros i y j, Ademas del contador
         // "i" avanzara cada vez que "j" llegue asta el numero item del array
@@ -141,5 +158,76 @@ public class Result {
         }
         return count;
     }
+
+    /**
+     * EJERCICIOS DE LINKEDLIST
+     * ex 6
+     * falla en los tests - no encuentro el problema
+     * se pide remover un elemento de la lista enlazada desde el final en una sola pasada.
+     * */
+
+    public static SinglyLinkedListNode removeKthNodeFromEnd(SinglyLinkedListNode head, int k) {
+
+        if (head == null || k <= 0) return head;
+
+        // declaracion y asignacion de dos punteros para recorrer una vez la lista
+        // puntero slow
+        SinglyLinkedListNode currentNode = head;
+        // puntero fast
+        SinglyLinkedListNode searchNode = head;
+
+        // avanzando las hacia adelante en la lista enlazada segun el valor de k
+        for (int i = 0;i < k && searchNode !=null; i++) {
+            searchNode = searchNode.next;
+            System.out.println("search " + searchNode.data);
+        }
+        if (searchNode == null) {
+            return head.next;
+        }
+        // loop mientras searchNode no sea nulo esto permite que el loop se mantenga activo hasta el final
+        // de la lista enlazada
+        while (searchNode != null) {
+            // si el siguiente nodo de searchNode es null podemos eliminar el siguiente nodo.
+            if (searchNode.next==null) {
+                currentNode.next = currentNode.next.next;
+                return head;
+            }
+            // seguimos avanzando en la lista
+            searchNode = searchNode.next;
+            currentNode = currentNode.next;
+        }
+        return head;
+    }
+    /**
+     * EJERCICIOS DE LINKEDLIST
+     * ex 7
+     * Elimina los numeros consecutivos duplicados de una lista enlazada
+     * */
+    public static SinglyLinkedListNode deleteDuplicates(SinglyLinkedListNode head) {
+        // verificamos que el head y el siguiente nodo no sean null
+        if (head == null || head.next == null) return head;
+
+        // asignamos dos punteros para comprobar si hay numeros duplicados
+        SinglyLinkedListNode previousNode = head;
+        SinglyLinkedListNode currentNode = head.next;
+
+        while(currentNode != null) {
+            // si los numeros no son iguales seguimos avanzando normalmente la lista enlazada
+            if (previousNode.data != currentNode.data) {
+                currentNode = currentNode.next;
+                previousNode = previousNode.next;
+            }
+            // de lo contrario cuando esten repetidos asiganmos el nuevo valor de previous node
+            // a current Node y avanzamos en una posicion al curren ya que se encuentran en la
+            // misma posicion despues de la eliminacion
+            else {
+                previousNode.next = currentNode.next;
+                currentNode = currentNode.next ;
+            }
+        }
+        return head;
+    }
+
+
 }
 
