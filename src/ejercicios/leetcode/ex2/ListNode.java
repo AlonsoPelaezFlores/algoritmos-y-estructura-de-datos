@@ -48,4 +48,6 @@ class Solution {
     private int checkListNodeValid(ListNode list) {
         return (list != null) ? list.val : 0;
     }
+
+
 }
