@@ -10,45 +10,46 @@ public class LinkedList {
 
     /**
      * EJERCICIO 1
-     * falla en los tests - no encuentro el problema
+     * Hace lo que pide el problema pero no se porque falla en los tests
      * Pide remover el elemento "K" de la lista desde el final EN UNA SOLA ITERACION
+     * EJEMPLO : 1 -> 2 -> 3 -> 4 -> null,  k= 2, resultado = 1 -> 2 -> 4 -> null
      * */
 
     public static SinglyLinkedListNode removeKthNodeFromEnd(SinglyLinkedListNode head, int k) {
 
-        if (head == null || k <= 0) return head;
+        if (verifyData(head, k)) return head;                               //verifica que la lista no sea null ni k menor o igual a 0
 
-        // declaracion y asignacion de dos punteros para recorrer una vez la lista
-        // puntero slow
         SinglyLinkedListNode currentNode = head;
-        // puntero fast
-        SinglyLinkedListNode searchNode = head;
+        SinglyLinkedListNode previuosNode = head;
 
-        // avanzando las hacia adelante en la lista enlazada segun el valor de k
-        for (int i = 0;i < k && searchNode !=null; i++) {
-            searchNode = searchNode.next;
-            System.out.println("search " + searchNode.data);
-        }
-        if (searchNode == null) {
-            return head.next;
-        }
-        // loop mientras searchNode no sea nulo esto permite que el loop se mantenga activo hasta el final
-        // de la lista enlazada
-        while (searchNode != null) {
-            // si el siguiente nodo de searchNode es null podemos eliminar el siguiente nodo.
-            if (searchNode.next==null) {
-                currentNode.next = currentNode.next.next;
-                return head;
-            }
-            // seguimos avanzando en la lista
-            searchNode = searchNode.next;
+        for (int i = 0; i < k; i++) {                                           // avanzamos 'k' nodos
+            if (currentNode == null) return head;                              // devuelve head si se ha cortado el avance antes de terminar
             currentNode = currentNode.next;
         }
-        return head;
+        if (currentNode == null) {                                             // si despues de avanzar "k" nodos el siguiente nodo es null 'k' es
+            return head.next;                                                  // a la longitud de la lista y debe devolver el siguiente nodo
+        }
+
+        while (currentNode.next != null) {                                     // loop hasta llegar al final de la lista
+            currentNode = currentNode.next;                                     // avanza al siguiente nodo
+            previuosNode = previuosNode.next;                                   // avanza al siguiente nodo
+
+        }
+        previuosNode.next = previuosNode.next.next;                             // una vez currentNode llega al final se modifica el nodo previo
+        return head;                                                            // para que apunte al siguiente nodo del que debemos eliminar
+    }
+    public static Boolean verifyData(SinglyLinkedListNode head, int k) {
+        boolean result = true;
+        if (head == null) result=false;
+        else if (head.next == null) result= false;
+        else if(k > 0) result = false;
+
+        return result;
     }
     /**
      * EJERCICIO 2
      * Elimina los numeros consecutivos duplicados de una lista enlazada EN UNA SOLA ITERACION
+     * EJEMPLO : 1 -> 2 -> 2 -> 4 -> null, resultado 1 -> 2 -> 4 -> null
      * */
     public static SinglyLinkedListNode deleteDuplicates(SinglyLinkedListNode head) {
         // verificamos que el head y el siguiente nodo no sean null
@@ -90,8 +91,10 @@ public class LinkedList {
 
 //        ex1
 //        SinglyLinkedListNode head = createLinkedList(Arrays.asList(1, 2, 3, 4, 5, 6));
-//        SinglyLinkedListNode result = removeKthNodeFromEnd(head, 0);
-//        showLinkedList(result);
+        SinglyLinkedListNode head = createLinkedList(Arrays.asList(1,2));
+        SinglyLinkedListNode result = removeKthNodeFromEnd(head, 0);
+        System.out.println(result.data);
+        showLinkedList(result);
 
 //        ex2
 //        SinglyLinkedListNode head = createLinkedList(Arrays.asList(1, 2, 2, 2, 3, 4));
@@ -99,8 +102,8 @@ public class LinkedList {
 //        System.out.println(result);
 
 //        ex3
-        SinglyLinkedListNode head = createLinkedList(Arrays.asList(10,20,30,40,50,60,70,80));
-        extractAndAppendSponsoredNodes(head);
+//        SinglyLinkedListNode head = createLinkedList(Arrays.asList(10,20,30,40,50,60,70,80));
+//        extractAndAppendSponsoredNodes(head);
 //        showLinkedList(head);
     }
     /**
