@@ -1,9 +1,6 @@
 package ejercicios.hackerrank.arrays;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 
 public class ArraysAndProblemSolving {
     /**
@@ -82,8 +79,40 @@ public class ArraysAndProblemSolving {
         return result;
     }
 
+    /*
+     * EJERCICIO 3 - BASICO
+     * Devuelve el numero positivo mas pequeño no existente dentro del array
+     * Ejemplo:
+     * list = [-1,2,4,5], resultado = 1
+     * */
+    public static int findSmallestMissingPositive(List<Integer> orderNumbers) {
 
+        if (orderNumbers.isEmpty()) return 1;
 
+        int i = 0;
+        while (i < orderNumbers.size()){                                                //loop de ordenamiento
+            int value = orderNumbers.get(i);                                            //declaramos el valor
+            int correct_position =  value - 1;                                          // posicion que deberia tener cada numero
+            if ( correct_position >= 0 &&
+                    correct_position < orderNumbers.size() &&
+                    orderNumbers.get(correct_position) != value){
+                int temp = orderNumbers.get(correct_position);                          // si cumple con las condiciones intercambiamos los numeros
+                orderNumbers.set(correct_position, value);
+                orderNumbers.set(i, temp);
+            }else {
+                i++;                                                                    // de lo contrario aumentamos en 1 el contador
+            }
+        }
+        int result;
+        for (int j = 0; j < orderNumbers.size(); j++) {                                 // loop de busqueda numero positivo restantes
+            if (j != orderNumbers.get(j)-1){                                            // condicional para verificar que coincidan el indice y su valor - 1
+                result = j + 1 ;                                                        // si cumple la condicion devolvemos el indice + 1
+                return result;
+            }
+        }
+        result = orderNumbers.size() + 1;                                               // si todos los numeros esta ordenado devolvemos la longitud
+        return result;                                                                  // de la lista + 1
+    }
 
     public static void main(String[] args) {
 //                ex 1
@@ -99,6 +128,8 @@ public class ArraysAndProblemSolving {
 //        expected [1,8]
 //        System.out.println(Result.mergeHighDefinitionIntervals(listMerged));
 
+        //ex3
+        List<Integer> list = Arrays.asList(2,2,3);
+        System.out.println(findSmallestMissingPositive(list));
     }
-
 }
