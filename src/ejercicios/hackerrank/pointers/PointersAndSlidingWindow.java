@@ -11,29 +11,20 @@ public class PointersAndSlidingWindow {
      * EJEMPLO: tienes= [1,2,3,4], y budget =5. resultado =[1,2][1,3][1,4][2,3] = 4
      */
     public static int countAffordablePairs(List<Integer> prices, int budget) {
-        // inicializamos dos punteros i y j, Ademas del contador
-        // "i" avanzara cada vez que "j" llegue asta el numero item del array
+
         int i=0, j=1, count = 0;
-        // loop mientras i sea menor a la longitud del array
         while (i < prices.size() - 1){
-            // si j es igual o mayor a la longitud
-            if (j >= prices.size()) {
-                // avanzamos a la siguiente posicion del array
-                i++;
-                // movemos a "j" a su nueva posicion, es decir, una posicion delante de "i"
-                // para seguir con el recorrido
-                j=i+1;
-                // volvemos al inicio para evitar la siguiente condicional
-                continue;
+            if (j >= prices.size()) {                                       // si j mayor a igual a la longitud de la cadena reiniciamos valores
+                i++;                                                        // ajusta posicion de"i"
+                j=i+1;                                                      // ajusta posicion de "j" para ir una posicion por delante de "i"
+                continue;                                                   // con el continue volvemos al inicio asi j no se adelante otra posicion
             }
-            // verificamos si la suma de estos numeros son menores a budget, de ser asi, se van contabilizando
-            if (prices.get(i) + prices.get(j) <= budget) {
-                count++;
+            if (prices.get(i) + prices.get(j) <= budget) {                  // verifica si la suma de estos dos numeros son menores a budget
+                count++;                                                    // suma en 1 al contador
             }
-            // aumentamos en 1 el puntero
-            j++;
+            j++;                                                            // suma en 1 a "j" para seguir recorriendo el arreglo
         }
-        return count;
+        return count;                                                       // devolvemos el contador
     }
     public static void main(String[] args) {
 
